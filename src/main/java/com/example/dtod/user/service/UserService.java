@@ -28,6 +28,7 @@ public class UserService {
                 .build();
 
         userRepository.save(signInUser);
+
         return signInUser.getId();
     }
 }
