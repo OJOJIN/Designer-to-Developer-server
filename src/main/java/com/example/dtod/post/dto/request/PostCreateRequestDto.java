@@ -11,4 +11,6 @@ public class PostCreateRequestDto {
 
     private String contents;
 
+    private String category;
+
 }

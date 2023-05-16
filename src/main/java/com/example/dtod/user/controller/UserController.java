@@ -19,7 +19,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/signIn")
+    @PostMapping("")
     public BaseResponseDto<Long> signIn(@RequestBody UserSignInRequestDto userSignInRequestDto){
         Long userId = userService.signInUser(userSignInRequestDto);
         if(userId == -1) return new BaseResponseDto(ALREADY_SIGNUPED_EMAIL_USER);
