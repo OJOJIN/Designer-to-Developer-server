@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
@@ -24,7 +23,7 @@ public class Post extends BaseTimeEntity {
     private String title;
 
     @Column(nullable = false)
-    private String contents;
+    private String content;
 
     @Column(nullable = false)
     private String category;
@@ -33,24 +32,23 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String image;
 
-    @CreatedDate
-    @Column(updatable = false)
-    protected LocalDateTime createdDate;
 
-    @LastModifiedDate
-    private LocalDateTime modifiedDate;
-
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-
     @Builder
-    public Post(String title, String contents, User user, String category, String image) {
+    public Post(String title, String content, User user, String category, String image) {
         this.title = title;
-        this.contents = contents;
+        this.content = content;
         this.user = user;
+        this.category = category;
+        this.image = image;
+    }
+
+    public void update(String title, String content, String category, String image) {
+        this.title = title;
+        this.content = content;
         this.category = category;
         this.image = image;
     }

@@ -1,16 +1,18 @@
 package com.example.dtod.post.dto.request;
 
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-public class PostCreateRequestDto {
+@AllArgsConstructor
+public class PostUpdateRequestDto {
 
-    private Long userId;
+    private Long id;
 
     private String title;
 
     private String content;
 
     private String category;
-
 }
