@@ -2,11 +2,16 @@ package com.example.dtod.user.controller;
 
 import com.example.dtod.post.dto.request.PostUpdateRequestDto;
 import com.example.dtod.response.BaseResponseDto;
+import com.example.dtod.user.dto.request.UserLoginInRequestDto;
 import com.example.dtod.user.dto.request.UserSignInRequestDto;
 import com.example.dtod.user.dto.request.UserUpdateRequestDto;
+import com.example.dtod.user.dto.response.UserFindByIdResponseDto;
+import com.example.dtod.user.dto.response.UserLoginResponseDto;
 import com.example.dtod.user.dto.response.UserSignInResponseDto;
 import com.example.dtod.user.dto.response.UserUpdateResponseDto;
+import com.example.dtod.user.entity.User;
 import com.example.dtod.user.service.UserService;
+import com.fasterxml.jackson.databind.ser.Serializers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.bind.annotation.*;
@@ -46,5 +51,15 @@ public class UserController {
         return new BaseResponseDto<>(userService.update(userUpdateRequestDto, file));
     }
 
+    // 로그인
+    @GetMapping("/login")
+    public BaseResponseDto<UserLoginResponseDto> login(@RequestParam String userId,
+                                                       @RequestParam String password){
+        return new BaseResponseDto<>(userService.login(new UserLoginInRequestDto(userId, password)));
+    }
 
+    @GetMapping("/profile/{id}")
+    public BaseResponseDto<UserFindByIdResponseDto> findById(@PathVariable Long id){
+        return new BaseResponseDto<>(userService.findById(id));
+    }
 }
