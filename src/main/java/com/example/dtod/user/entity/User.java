@@ -2,6 +2,7 @@ package com.example.dtod.user.entity;
 
 
 import com.example.dtod.post.entity.Post;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
 import lombok.*;
@@ -33,8 +34,8 @@ public class User {
     @Column(columnDefinition = "TEXT")
     private String profileImg;
 
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Post> posts = new ArrayList<>();
 
     @Builder
