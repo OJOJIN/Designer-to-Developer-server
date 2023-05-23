@@ -6,6 +6,7 @@ import com.example.dtod.post.dto.request.PostCreateResponseDto;
 import com.example.dtod.post.dto.request.PostUpdateRequestDto;
 import com.example.dtod.post.dto.response.PostSearchResponseDto;
 import com.example.dtod.post.dto.response.PostUpdateResponseDto;
+import com.example.dtod.post.entity.Post;
 import com.example.dtod.post.service.PostService;
 import com.example.dtod.response.BaseResponseDto;
 import com.example.dtod.response.PageResponseDto;
@@ -49,6 +50,11 @@ public class PostController {
     @DeleteMapping("{id}")
     public BaseResponseDto<Boolean> delete(@PathVariable Long id){
         return new BaseResponseDto<>(postService.delete(id));
+    }
+
+    @GetMapping("{id}")
+    public BaseResponseDto<Post> findById(@PathVariable Long id){
+        return new BaseResponseDto<>(postService.findById(id));
     }
 
     //포스트 카테고리로 가져오기

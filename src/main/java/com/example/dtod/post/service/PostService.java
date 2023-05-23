@@ -24,6 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Optional;
 
+
+
 @Slf4j
 @RequiredArgsConstructor
 @Transactional
@@ -55,6 +57,14 @@ public class PostService {
         postRepository.save(post);
 
         return new PostCreateResponseDto(post.getId());
+    }
+
+    public Post findById(Long id){
+        if(!postRepository.existsById(id))
+            throw new BusinessException(ErrorMessage.POST_NOT_FOUND);
+
+        Post post = postRepository.findById(id).get();
+        return post;
     }
 
     // 게시물 전체 검색
