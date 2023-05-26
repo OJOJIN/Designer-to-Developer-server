@@ -29,6 +29,7 @@ public class PostController {
     @PostMapping("")
     public BaseResponseDto<PostCreateResponseDto> create (@RequestPart PostCreateRequestDto postCreateRequestDto,
                                                           @RequestPart MultipartFile file) throws IOException {
+
         PostCreateResponseDto response = postService.create(postCreateRequestDto, file);
 
         return new BaseResponseDto<>(response);
@@ -53,7 +54,7 @@ public class PostController {
     }
 
     @GetMapping("{id}")
-    public BaseResponseDto<Post> findById(@PathVariable Long id){
+    public BaseResponseDto<PostSearchResponseDto> findById(@PathVariable Long id){
         return new BaseResponseDto<>(postService.findById(id));
     }
 

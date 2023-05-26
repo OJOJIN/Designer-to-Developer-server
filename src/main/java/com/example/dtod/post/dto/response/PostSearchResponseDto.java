@@ -16,7 +16,7 @@ public class PostSearchResponseDto {
 
     private String user_nickname;
 
-    private String user_profile_img;
+    private String user_profileImg;
 
     private String user_category;
 
@@ -26,7 +26,7 @@ public class PostSearchResponseDto {
 
     private String category;
 
-    private String post_img;
+    private String postImg;
 
     private LocalDateTime created_date;
 
@@ -34,12 +34,13 @@ public class PostSearchResponseDto {
         this.id = post.getId();
         this.user_id = post.getUser().getId();
         this.user_nickname = post.getUser().getNickname();
-        this.user_profile_img = post.getUser().getProfileImg();
+        this.user_profileImg = post.getUser().getProfileImg();
         this.user_category = post.getUser().getCategory();
         this.title = post.getTitle();
         this.content = post.getContent();
         this.category = post.getCategory();
         this.created_date = post.getCreatedDate();
+        this.postImg = post.getImage();
     }
 
 }
