@@ -19,13 +19,13 @@ public class Message {
     private Long id;
 
     @Column(nullable = false)
-    private String requestUserId;
+    private Long requestUserId;
 
     @Column(nullable = false)
-    private String responseUserId;
+    private Long responseUserId;
 
     @Builder
-    public Message(String requestUserId, String responseUserId) {
+    public Message(Long requestUserId, Long responseUserId) {
         this.requestUserId = requestUserId;
         this.responseUserId = responseUserId;
     }
