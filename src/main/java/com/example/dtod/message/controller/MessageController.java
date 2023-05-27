@@ -9,10 +9,12 @@ import com.example.dtod.message.entity.Message;
 import com.example.dtod.message.service.MessageService;
 import com.example.dtod.response.BaseResponseDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/message")
@@ -22,8 +24,9 @@ public class MessageController {
 
     @GetMapping("/all")
     public BaseResponseDto<MessageGetAllResponseDto> findAll(
-            @RequestParam MessageGetAllRequestDto messageGetAllRequestDto){
-        List<Message> messages = messageService.getMessagesByRequestUserId(messageGetAllRequestDto.getId());
+            @RequestParam Long id){
+        List<Message> messages = messageService.getMessagesByRequestUserId(id);
+        log.info("messages: {}", messages);
         return new BaseResponseDto<>(new MessageGetAllResponseDto(messages));
     }
 
