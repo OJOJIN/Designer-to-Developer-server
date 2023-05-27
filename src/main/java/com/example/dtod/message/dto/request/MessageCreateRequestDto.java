@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 public class MessageCreateRequestDto {
 
-    private String requestUserId;
-    private String responseUserId;
+    private Long requestUserId;
+    private Long responseUserId;
 }
