@@ -19,7 +19,14 @@ public enum ErrorMessage {
     INVALID_FILE_UPLOAD(BAD_REQUEST, false, "파일 업로드에 실패하였습니다."),
     INVALID_FORMAT(BAD_REQUEST, false, "형식에 맞지 않습니다."),
     POST_NOT_FOUND(NOT_FOUND, false, "포스트를 찾을 수 없습니다."),
-    ALREADY_SIGNUPED_EMAIL_USER(BAD_REQUEST, false, "이미 회원가입한 유저입니다.");
+    ALREADY_SIGNUPED_EMAIL_USER(BAD_REQUEST, false, "이미 회원가입한 유저입니다."),
+
+    ALREADY_EXISTED_ARTICLE(BAD_REQUEST, false, "이미 존재하는 기사입니다."),
+    ARTICLE_NOT_FOUND(NOT_FOUND, false, "해당 기업을 찾을 수 없습니다."),
+
+    ALREADY_EXISTED_COMPANY(BAD_REQUEST, false, "이미 존재하는 기업입니다."),
+    COMPANY_NOT_FOUND(NOT_FOUND, false, "해당 기업을 찾을 수 없습니다.");
+
 
     private final int code;
     private final boolean isSuccess;
