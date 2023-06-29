@@ -36,6 +36,14 @@ public class PostService {
     private final UserRepository userRepository;
     private final S3Service s3Uploader;
 
+
+    // 게시물 업로드
+    public String imageCreate (MultipartFile file) throws IOException {
+        String imgUrl = s3Uploader.upload(file);
+
+        return imgUrl;
+    }
+
     // 게시물 업로드
     public PostCreateResponseDto create (PostCreateRequestDto postCreateRequestDto,
                                          MultipartFile file) throws IOException {

@@ -4,6 +4,7 @@ package com.example.dtod.post.controller;
 import com.example.dtod.post.dto.request.PostCreateRequestDto;
 import com.example.dtod.post.dto.request.PostCreateResponseDto;
 import com.example.dtod.post.dto.request.PostUpdateRequestDto;
+import com.example.dtod.post.dto.response.ImageUploadDto;
 import com.example.dtod.post.dto.response.PostSearchResponseDto;
 import com.example.dtod.post.dto.response.PostUpdateResponseDto;
 import com.example.dtod.post.entity.Post;
@@ -24,6 +25,16 @@ import java.io.IOException;
 public class PostController {
 
     private final PostService postService;
+
+
+    // 포스트 제작
+    @PostMapping("/images")
+    public ImageUploadDto uploadImage (@RequestPart MultipartFile file) throws IOException {
+
+        String imageUrl = postService.imageCreate(file);
+
+        return new ImageUploadDto(imageUrl);
+    }
 
     // 포스트 제작
     @PostMapping("")

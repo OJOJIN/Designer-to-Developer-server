@@ -3,11 +3,15 @@ package com.example.dtod.post.dto.response;
 import com.example.dtod.post.entity.Post;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class PostSearchResponseDto {
 
     private Long id;
