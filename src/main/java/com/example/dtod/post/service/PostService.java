@@ -24,6 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Optional;
 
+
+
 @Slf4j
 @RequiredArgsConstructor
 @Transactional
@@ -34,9 +36,19 @@ public class PostService {
     private final UserRepository userRepository;
     private final S3Service s3Uploader;
 
+
+    // 게시물 업로드
+    public String imageCreate (MultipartFile file) throws IOException {
+        String imgUrl = s3Uploader.upload(file);
+
+        return imgUrl;
+    }
+
     // 게시물 업로드
     public PostCreateResponseDto create (PostCreateRequestDto postCreateRequestDto,
                                          MultipartFile file) throws IOException {
+        log.info(postCreateRequestDto.getTitle(), postCreateRequestDto.getContent(), postCreateRequestDto.getCategory(), postCreateRequestDto.getUserId());
+        log.info(String.valueOf(file));
 
         String imgUrl = s3Uploader.upload(file);
 
@@ -57,9 +69,29 @@ public class PostService {
         return new PostCreateResponseDto(post.getId());
     }
 
+    public PostSearchResponseDto findById(Long id){
+        if(!postRepository.existsById(id))
+            throw new BusinessException(ErrorMessage.POST_NOT_FOUND);
+
+        Post post = postRepository.findById(id).get();
+
+        return  new PostSearchResponseDto(
+                post.getId(),
+                post.getUser().getId(),
+                post.getUser().getNickname(),
+                post.getUser().getProfileImg(),
+                post.getUser().getCategory(),
+                post.getTitle(),
+                post.getContent(),
+                post.getCategory(),
+                post.getImage(),
+                post.getCreatedDate()
+        );
+    }
+
     // 게시물 전체 검색
     public Page<PostSearchResponseDto> findAll(Pageable pageable) {
-        Page<Post> posts = postRepository.findAll(pageable);
+        Page<Post> posts = postRepository.findAllByUserNotNullOrderByCreatedDateDesc(pageable);
         if(posts.isEmpty())
             throw new BusinessException(ErrorMessage.POST_NOT_FOUND);
         return posts.map(PostSearchResponseDto::new);
@@ -69,6 +101,7 @@ public class PostService {
     // 게시물 수정
     public PostUpdateResponseDto update(PostUpdateRequestDto postUpdateRequestDto,
                                         MultipartFile file) throws IOException {
+
         Post post = postRepository.findById(postUpdateRequestDto.getId()).get();
 
         String imgUrl = s3Uploader.upload(file);

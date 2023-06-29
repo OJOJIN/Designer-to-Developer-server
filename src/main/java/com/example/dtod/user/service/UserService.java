@@ -70,6 +70,8 @@ public class UserService {
     public UserLoginResponseDto login(UserLoginInRequestDto userLoginInRequestDto){
 
         User user = userRepository.findAllByUserId(userLoginInRequestDto.getUserId());
+        if(user==null) throw new BusinessException(ErrorMessage.USER_NOT_FOUND);
+
         if(!Objects.equals(user.getPassword(), userLoginInRequestDto.getPassword()))
             throw new BusinessException(ErrorMessage.WRONG_PASSWORD);
 
